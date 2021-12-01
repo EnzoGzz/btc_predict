@@ -1,4 +1,6 @@
+
 # Bitcoin prediction <img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Bitcoin.svg" alt="bitcoin" width="27"/>
+
 ## Classroom work 
 
 ---
