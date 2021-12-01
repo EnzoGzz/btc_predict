@@ -19,4 +19,12 @@ Language : <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-
 
 **Output** : (date, price) *prediction*
 
+---
+
+**Data format** : [csv](https://en.wikipedia.org/wiki/Comma-separated_values)
+
 **Data size** : 3,6M *valid rows*
+
+**Data columns** : 8
+
+**Data useful** : numeric *(timestamp, float)*
