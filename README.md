@@ -13,8 +13,8 @@ Language : <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-
 
 **Type** : forecast, regression
 
-**Input** : (date, price) existing
+**Input** : (date, price) *existing*
 
-**Output** : (date, price) prediction
+**Output** : (date, price) *prediction*
 
-**Data size** : 3,6M valid rows
+**Data size** : 3,6M *valid rows*
