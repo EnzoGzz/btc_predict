@@ -20,4 +20,8 @@ print("a = ", a[0])
 b = model.intercept_
 print("b = ", b)
 
-# print(df_test)
+xnew = np.array([1325600520])
+ynew = model.predict(xnew.reshape(-1,1))
+print(ynew)
+
+print(df_test)
