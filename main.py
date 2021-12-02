@@ -38,3 +38,4 @@ ypred = model.predict(X)
 print(ypred.shape)
 print('Erreur quadratique moyenne = ', np.mean((y - ypred) ** 2))
 
+print(df)
