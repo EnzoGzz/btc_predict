@@ -15,7 +15,6 @@ start = dt.datetime(2016, 1, 1)
 end = dt.datetime.now()
 
 data = web.DataReader(f'{crypto_currency}-{against_currency}', 'yahoo', start, end)
-
 # Prepare Data
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled_data = scaler.fit_transform(data['Close'].values.reshape(-1, 1))
@@ -64,11 +63,11 @@ model_inputs = scaler.fit_transform(model_inputs)
 
 x_test = []
 
-for x in range(prediction_days, len(model_inputs) +1):
-    x_test.append(model_inputs[x-prediction_days:x, 0])
+for x in range(prediction_days, len(model_inputs) + 1):
+    x_test.append(model_inputs[x - prediction_days:x, 0])
 
 x_test = np.array(x_test)
-x_test = np.reshape(x_test, (x_test.shape[0],x_test.shape[1], 1))
+x_test = np.reshape(x_test, (x_test.shape[0], x_test.shape[1], 1))
 
 prediction_prices = model.predict(x_test)
 prediction_prices = scaler.inverse_transform(prediction_prices)
@@ -83,10 +82,34 @@ plt.show()
 
 # Predicting future
 
-real_data = [model_inputs[len(model_inputs) + 1 - prediction_days:len(model_inputs+1), 0]]
+real_data = [model_inputs[len(model_inputs) - prediction_days:len(model_inputs) + 1, 0]]
 real_data = np.array(real_data)
 real_data = np.reshape(real_data, (real_data.shape[0], real_data.shape[1], 1))
 
 prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
 print(f"Prediction : {prediction}")
+
+future_days = 20
+
+base_values = real_data[0]
+predicted_values = []
+
+
+for i in range(0, future_days-1):
+
+    value = model.predict(np.array(base_values))
+    np.append(base_values, np.array(scaler.inverse_transform(value)[0]))
+    predicted_values.append(scaler.inverse_transform(value)[0][0])
+
+    base_values = base_values[1:]
+
+print(predicted_values)
+
+plt.plot(actual_prices, color='black', label='Actual prices')
+plt.plot(predicted_values, color='green', label='Predicted Prices')
+plt.title(f'{crypto_currency} price prediction')
+plt.xlabel('Time')
+plt.ylabel('Price')
+plt.legend(loc='upper left')
+plt.show()
