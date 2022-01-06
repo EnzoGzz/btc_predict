@@ -28,3 +28,23 @@ Language : <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-
 **Data columns** : 8
 
 **Data useful** : numeric *(timestamp, float)*
+
+---
+
+### Dependencies
+
+#### Linear regression
+- pandas
+- matplotlib.pyplot
+- pickle
+- sklearn
+
+#### RNN - LSTM
+- numpy
+- pandas
+- pandas_datareader
+- matplotlib.pyplot
+- datetime
+- sklearn.preprocessing (MinMaxScaler)
+- tensorflow.keras.layers (Dense, Dropout, LSTM)
+- tensorflow.keras.models (Sequential)
