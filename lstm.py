@@ -19,7 +19,7 @@ data = web.DataReader(f'{crypto_currency}-{against_currency}', 'yahoo', start, e
 scaler = MinMaxScaler(feature_range=(0, 1))
 scaled_data = scaler.fit_transform(data['Close'].values.reshape(-1, 1))
 
-prediction_days = 60
+prediction_days = 400
 
 x_train, y_train = [], []
 
@@ -90,24 +90,28 @@ prediction = model.predict(real_data)
 prediction = scaler.inverse_transform(prediction)
 print(f"Prediction : {prediction}")
 
-future_days = 20
+future_days = 100
 
 base_values = real_data[0]
 predicted_values = []
 
 
-for i in range(0, future_days-1):
-
-    value = model.predict(np.array(base_values))
-    np.append(base_values, np.array(scaler.inverse_transform(value)[0]))
+for i in range(0, future_days):
+    value = model.predict(np.array([base_values]))
+    base_values = np.append(base_values, value, axis=0)
     predicted_values.append(scaler.inverse_transform(value)[0][0])
-
     base_values = base_values[1:]
 
 print(predicted_values)
 
-plt.plot(actual_prices, color='black', label='Actual prices')
-plt.plot(predicted_values, color='green', label='Predicted Prices')
+graph = scaler.inverse_transform(real_data[0])
+
+x_axe = []
+for j in range(len(real_data[0]),len(real_data[0])+future_days):
+    x_axe.append(j)
+
+plt.plot(graph, color='black', label='Actual prices')
+plt.plot(x_axe, predicted_values, color='green', label='Predicted Prices')
 plt.title(f'{crypto_currency} price prediction')
 plt.xlabel('Time')
 plt.ylabel('Price')
